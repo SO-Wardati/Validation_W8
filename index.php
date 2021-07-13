@@ -33,7 +33,3 @@ $player2 = new Magician('Vivi');
 </body>
 
 </html>
-<?php
-echo '<pre>';
-var_dump($player1, $player2);
-?>
