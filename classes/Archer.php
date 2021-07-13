@@ -18,7 +18,7 @@ class Archer extends Character
         } else if ($round > 30 || $this->quiver) {
             return $this->arrow($target);
         } else {
-            return $this->doubleArrow($target);
+            return $this->specialAttack($target);
         }
     }
 
