@@ -15,10 +15,12 @@ class Archer extends Character
         $round = rand(1, 100);
         if ($this->quiver == 0) {
             return $this->dagger($target);
-        } else if ($round > 30 || $this->quiver) {
-            return $this->arrow($target);
-        } else {
+        } else if ($round <= 30) {
             return $this->specialAttack($target);
+        } else if ($round == $this->specialAttack) {
+            return $this->doubleArrow($target);
+        } else {
+            return $this->arrow($target);
         }
     }
 
@@ -39,7 +41,8 @@ class Archer extends Character
     public function doubleArrow($target)
     {
         $cost = rand(1, 10);
-        if ($cost > 3) {
+        $cost = rand(1, 10);
+        if ($cost > 2) {
             $cost = 2;
             $arrowDamage = $cost * rand(15, 30) / 10;
             $this->quiver -= $cost;
@@ -57,17 +60,17 @@ class Archer extends Character
     }
     public function specialAttack()
     {
-        $this->specialAttack = true;
-        $status = "$this->name prépare une attaque spéciale !";
-        return $status;
+        if ($this->specialAttack == false) {
+            $this->specialAttack = true;
+            $status = "$this->name se prépare à lancer deux flèches !";
+            return $status;
+        }
+        $this->specialAttack = false;
     }
 
     public function setHealthPoints($damage)
     {
-        if (!$this->specialAttack) {
-            $this->healthPoints -= round($damage);
-        }
-        $this->specialAttack = false;
+        $this->healthPoints -= round($damage);
         $this->isAlive();
         return;
     }
